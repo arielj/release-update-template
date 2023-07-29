@@ -20,7 +20,7 @@ jobs:
       - name: Update File with Version
         run: |
           VERSION="{{ env.RELEASE_VERSION }}"
-          sed -i '/^        ## Latest stable version of Heroic is/c\        ## Latest stable version of Heroic is $VERSION. Please, update Heroic before reporting a bug if you have an older version.' .github/ISSUE_TEMPLATE/bug_report.yaml
+          sed -i "/^        ## Latest stable version of Heroic is/c\\        ## Latest stable version of Heroic is $VERSION. Please, update Heroic before reporting a bug if you have an older version." .github/ISSUE_TEMPLATE/bug_report.yaml
 
       - name: Commit and Push Changes
         run: |
