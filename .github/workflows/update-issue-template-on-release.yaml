@@ -1,4 +1,4 @@
-name: Update Version
+name: Update Version in Bug Report template
 
 on:
   release:
@@ -27,4 +27,5 @@ jobs:
           git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
           git add version.txt
           git commit -m "Update version.txt with latest release"
-          git push origin HEAD:update_bug_template
+          git checkout -b update_bug_template
+          git push origin update_bug_template
