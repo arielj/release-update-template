@@ -28,4 +28,8 @@ jobs:
           git add version.txt
           git commit -m "Update version.txt with latest release"
           git checkout -b update_bug_template
-          git push origin update_bug_template
+          git push origin update_bug_template -f
+
+      - name: Create Pull Request
+        run: |
+          gh pr create --base main --head update_bug_template --title "Update version.txt with latest release" --body "This pull request updates version.txt with the latest release version."
