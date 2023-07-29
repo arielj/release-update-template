@@ -13,21 +13,13 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v2
 
-      - name: Set Up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: "14" # You can change this to your desired Node.js version
-
-      - name: Install Dependencies
-        run: npm install
-
       - name: Get Latest Release Version
         id: get_latest_release
-        run: echo $(git describe --tags --abbrev=0) >> $GITHUB_ENV
+        run: echo "RELEASE_VERSION=$(git describe --tags --abbrev=0)" >> $GITHUB_ENV
 
       - name: Update File with Version
         run: |
-          echo "Latest Release: ${{ env.get_latest_release }}" > version.txt
+          echo "Latest Release: ${{ env.RELEASE_VERSION }}" > version.txt
 
       - name: Commit and Push Changes
         run: |
@@ -35,4 +27,4 @@ jobs:
           git config --local user.name "GitHub Action"
           git add version.txt
           git commit -m "Update version.txt with latest release"
-          git push origin HEAD:your_branch_name
+          git push origin HEAD:update_bug_template
