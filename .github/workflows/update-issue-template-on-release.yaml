@@ -1,0 +1,35 @@
+name: Update Version
+
+on:
+  release:
+    types:
+      - published
+
+jobs:
+  update_version_job:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Set Up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "14" # You can change this to your desired Node.js version
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Get Latest Release Version
+        id: get_latest_release
+        run: echo "::set-output name=version::$(git describe --tags --abbrev=0)"
+
+      - name: Update File with Version
+        run: |
+          echo "Latest Release: ${{ steps.get_latest_release.outputs.version }}" > version.txt
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add version.txt
+          git commit -m "Update version.txt with latest release"
+          git push
