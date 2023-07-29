@@ -31,5 +31,7 @@ jobs:
           git push origin update_bug_template -f
 
       - name: Create Pull Request
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           gh pr create --base main --head update_bug_template --title "Update version.txt with latest release" --body "This pull request updates version.txt with the latest release version."
